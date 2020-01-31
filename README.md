@@ -87,7 +87,8 @@ Jenkins doesn't provide a mechanism for automated installs, so the bootstrap pro
 
 The boostrap process requires about 2-4 minutes. To be safe, give it 5 minutes. Or, you can SSH into the instance and run `tail -f /var/log/cloud-init-output.log` and wait for the last three lines appear, similar to:
 
-```All done!
+```
+All done!
 Cloud-init v. ... running ...
 Cloud-init v. ... finished ...
 ```
