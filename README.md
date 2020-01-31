@@ -61,7 +61,7 @@ In addition, you'll need to create and set the following variables in your works
  * `instance_type`: Size of the AWS instance to run the demo on. Defaults to `t3.medium`
  * `org_name`: The name of your Terraform Cloud Organization where these workspaces reside
  * `workspace_name`: The name of the simple instance workspace
- * `bucket`: An S3 bucket where Jenkins can stash an artifact from the build pipeline
+ * `bucket`: The name of an S3 bucket where Jenkins can stash an artifact from the build pipeline--just the bucket name only
  * `tfe_api_token`: 
 
 #### Simple instance workspace
