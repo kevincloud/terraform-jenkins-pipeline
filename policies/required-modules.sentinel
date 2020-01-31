@@ -1,0 +1,28 @@
+import "tfconfig"
+
+# Get all referenced modules
+get_modules = func() {
+    modules = []
+    for tfconfig.modules as mod {
+        append(modules, mod)
+    }
+    return modules
+}
+
+# These modules are required to be used
+required_modules = [
+    "jenkinssg",
+]
+
+# Store modules in a global variable
+selected_modules = get_modules()
+
+# Rule to ensure all required modules are used
+use_modules = rule {
+    all selected_modules as mod {
+        mod in required_modules
+    }
+}
+
+# Evaluate for main rule; must evaluate to true to pass
+main = rule { (use_modules) else true }
