@@ -109,9 +109,9 @@ Just one more step before we create the pipeline: add our AWS credentials into J
  * From the left-hand menu, click **Add Credentials**
  * In the **Kind** menu, select **AWS Credentials**
  * Enter the following values:
- * * **ID**: pipeline-credentials
- * * **Access Key ID**: _your AWS access key ID_
- * * **Secret Access Key**: _your AWS secret key_
+   * **ID**: pipeline-credentials
+   * **Access Key ID**: _your AWS access key ID_
+   * **Secret Access Key**: _your AWS secret key_
  * Click **OK**
  * Click **Jenkins** in the upper, left-hand corner
 
