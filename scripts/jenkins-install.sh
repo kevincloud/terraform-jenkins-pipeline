@@ -83,9 +83,3 @@ systemctl enable jenkins
 service jenkins start
 
 echo "All done!"
-
-
-# curl -s \
-#   --header "Authorization: Bearer JBFYaGGZSXWrDQ.atlasv1.FZOqozZP3eOUDJ8ZfFuIfMD4PKvOfYJokJlfz3jrRbqw5HWFhzCzfn9X5REywERPbM4" \
-#   --header "Content-Type: application/vnd.api+json" \
-#   https://app.terraform.io/api/v2/organizations/kevindemos/workspaces/vault-aws-minikube | jq -r .data.id
