@@ -21,7 +21,7 @@ resource "aws_instance" "jenkins-server" {
 }
 
 resource "aws_security_group" "jenkins-server-sg" {
-    name = "jenkins-server-sg"
+    name = "${var.prefix}-jenkins-server-sg"
     description = "Jenkins server security group"
     vpc_id = data.aws_vpc.primary-vpc.id
 
@@ -88,17 +88,17 @@ data "aws_iam_policy_document" "jenkins-main-access-doc" {
 }
 
 resource "aws_iam_role" "jenkins-main-access-role" {
-  name               = "jenkins-access-role"
+  name               = "${var.prefix}-jenkins-access-role"
   assume_role_policy = data.aws_iam_policy_document.jenkins-assume-role.json
 }
 
 resource "aws_iam_role_policy" "jenkins-main-access-policy" {
-  name   = "jenkins-access-policy"
+  name   = "${var.prefix}-jenkins-access-policy"
   role   = aws_iam_role.jenkins-main-access-role.id
   policy = data.aws_iam_policy_document.jenkins-main-access-doc.json
 }
 
 resource "aws_iam_instance_profile" "jenkins-main-profile" {
-  name = "jenkins-access-profile"
+  name = "${var.prefix}-jenkins-access-profile"
   role = aws_iam_role.jenkins-main-access-role.name
 }

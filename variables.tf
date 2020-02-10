@@ -35,3 +35,7 @@ variable "org_name" {
 variable "workspace_name" {
     description = "The name of the TFE workspace"
 }
+
+variable "prefix" {
+    description = "Unique prefix for naming"
+}
