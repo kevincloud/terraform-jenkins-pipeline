@@ -3,8 +3,8 @@ resource "aws_instance" "jenkins-server" {
     instance_type = var.instance_type
     key_name = var.key_pair
     iam_instance_profile = aws_iam_instance_profile.jenkins-main-profile.id
-    vpc_security_group_ids = [module.jenkinssg.id]
-    # vpc_security_group_ids = [aws_security_group.jenkins-server-sg.id]
+    # vpc_security_group_ids = [module.jenkinssg.id]
+    vpc_security_group_ids = [aws_security_group.jenkins-server-sg.id]
     user_data = templatefile("${path.module}/scripts/jenkins-install.sh", {
         AWS_ACCESS_KEY = var.aws_access_key,
         AWS_SECRET_KEY = var.aws_secret_key,
@@ -20,32 +20,32 @@ resource "aws_instance" "jenkins-server" {
     }
 }
 
-# resource "aws_security_group" "jenkins-server-sg" {
-#     name = "jenkins-server-sg"
-#     description = "Jenkins server security group"
-#     vpc_id = data.aws_vpc.primary-vpc.id
+resource "aws_security_group" "jenkins-server-sg" {
+    name = "jenkins-server-sg"
+    description = "Jenkins server security group"
+    vpc_id = data.aws_vpc.primary-vpc.id
 
-#     ingress {
-#         from_port = 22
-#         to_port = 22
-#         protocol = "tcp"
-#         cidr_blocks = ["0.0.0.0/0"]
-#     }
+    ingress {
+        from_port = 22
+        to_port = 22
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
 
-#     ingress {
-#        from_port = 8080
-#        to_port = 8080
-#        protocol = "tcp"
-#        cidr_blocks = ["0.0.0.0/0"]
-#     }
+    ingress {
+       from_port = 8080
+       to_port = 8080
+       protocol = "tcp"
+       cidr_blocks = ["0.0.0.0/0"]
+    }
 
-#     egress {
-#         from_port = 0
-#         to_port = 0
-#         protocol = "-1"
-#         cidr_blocks = ["0.0.0.0/0"]
-#     }
-# }
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
 
 data "aws_iam_policy_document" "jenkins-assume-role" {
   statement {
