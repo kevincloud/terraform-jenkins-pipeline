@@ -33,8 +33,9 @@ def putBinary() {
             break
         }
 
+        // TODO: Fix region
         fullPath = env.WORKSPACE + "/target/" + fileName
-        withAWS(credentials:'pipeline-credentials', region: 'us-west-2') {
+        withAWS(credentials:'pipeline-credentials', region: env.AWS_REGION) {
             s3Upload(bucket: env.ASSET_BUCKET, file: fullPath, path: fileName)
         }
     }

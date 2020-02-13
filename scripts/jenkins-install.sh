@@ -48,6 +48,7 @@ BEARER_TOKEN="${BEARER_TOKEN}"
 ASSET_BUCKET="${ASSET_BUCKET}"
 TF_ORGNAME="${TF_ORGNAME}"
 TF_WORKSPACE="${TF_WORKSPACE}"
+AWS_REGION="${AWS_REGION}"
 EOF
 
 sudo bash -c "cat >>/etc/bash.bashrc" <<EOF
@@ -56,6 +57,7 @@ export BEARER_TOKEN="${BEARER_TOKEN}"
 export ASSET_BUCKET="${ASSET_BUCKET}"
 export TF_ORGNAME="${TF_ORGNAME}"
 export TF_WORKSPACE="${TF_WORKSPACE}"
+export AWS_REGION="${AWS_REGION}"
 EOF
 
 source /etc/bash.bashrc

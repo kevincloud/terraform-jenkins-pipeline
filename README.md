@@ -37,6 +37,14 @@ Now we need to create a policy set to apply to the simple instance workspace.
 
 It's important to set this policy in order to see how we can override soft policy fails via the Terraform API.
 
+### Cost Estimation
+
+Cost estimation must be enabled for the demo to work properly since one of the sentinel policies limits the cost of the workspace.
+
+ * In TFC, go to **Settings -> Policy Sets**
+ * In the main screen, make sure **Enable Cost Estimation for all workspaces** is checked
+ * Click **Update settings**
+
 ### API Token
 
 Since Jenkins will be accessing Terraform via the API, we'll need to provide Jenkins with an API token. This will be exposed on the Jenkins server as an environment variable. The pipeline script will be able to gain access that way.
@@ -61,8 +69,8 @@ In addition, you'll need to create and set the following variables in your works
  * `instance_type`: Size of the AWS instance to run the demo on. Defaults to `t3.medium`
  * `org_name`: The name of your Terraform Cloud Organization where these workspaces reside
  * `workspace_name`: The name of the simple instance workspace
- * `bucket`: The name of an S3 bucket where Jenkins can stash an artifact from the build pipeline--just the bucket name only
- * `tfe_api_token`: 
+ * `bucket`: The name of an S3 bucket where Jenkins can stash an artifact from the build pipeline--just the bucket name only. Make sure this bucket exists in the same region as specified above
+ * `tfe_api_token`: This is the API token from Terraform Cloud which has access to the respective workspaces
 
 #### Simple instance workspace
 
@@ -72,7 +80,7 @@ In addition, you'll need to create and set the following variables in your works
  * `key_pair`: This is the EC2 key pair you created in order to SSH into your EC2 instance
  * `instance_type`: Size of the AWS instance to run the demo on. Defaults to `t3.large`
 
- :warning: Make sure the cost of `instance_type` exceeds $10 per month in order for the pipeline to work correctly.
+ :warning: Make sure the cost of `instance_type` exceeds $10 per month in order for the pipeline to work correctly, as there this is a Sentinel policy with a monthly limit of $10 for `instance_type` to showcase a Sentinel soft-mandatory override within Jenkins.
 
 ## Spinning up Jenkins
 
