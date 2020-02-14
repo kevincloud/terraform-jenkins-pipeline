@@ -16,7 +16,7 @@ resource "aws_instance" "jenkins-server" {
     })
 
     tags = {
-        Name = "kevin-jenkins-server"
+        Name = "${var.prefix}-jenkins-server"
     }
 }
 
