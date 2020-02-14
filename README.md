@@ -71,6 +71,7 @@ In addition, you'll need to create and set the following variables in your works
  * `workspace_name`: The name of the simple instance workspace
  * `bucket`: The name of an S3 bucket where Jenkins can stash an artifact from the build pipeline--just the bucket name only. Make sure this bucket exists in the same region as specified above
  * `tfe_api_token`: This is the API token from Terraform Cloud which has access to the respective workspaces
+ * `prefix`: Unique prefix for naming (ex: kevincloud)
 
 #### Simple instance workspace
 
@@ -79,6 +80,7 @@ In addition, you'll need to create and set the following variables in your works
  * `aws_region`: Region to deploy the demo to. Defaults to `us-east-1`
  * `key_pair`: This is the EC2 key pair you created in order to SSH into your EC2 instance
  * `instance_type`: Size of the AWS instance to run the demo on. Defaults to `t3.large`
+ * `prefix`: Unique prefix for naming (ex: kevincloud)
 
  :warning: Make sure the cost of `instance_type` exceeds $10 per month in order for the pipeline to work correctly, as there this is a Sentinel policy with a monthly limit of $10 for `instance_type` to showcase a Sentinel soft-mandatory override within Jenkins.
 
