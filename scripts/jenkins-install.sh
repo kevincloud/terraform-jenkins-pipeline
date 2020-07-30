@@ -21,7 +21,7 @@ echo "Updating system..."
 # sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade > /dev/null 2>&1
 apt-get -y upgrade > /dev/null 2>&1
 echo "Installing additional software..."
-apt-get -y install git jq openjdk-8-jdk python3 python3-pip npm docker.io maven jenkins > /dev/null 2>&1
+apt-get -y install git jq unzip openjdk-8-jdk python3 python3-pip npm docker.io maven jenkins > /dev/null 2>&1
 
 echo "Adding AWS config..."
 mkdir -p /root/.aws
