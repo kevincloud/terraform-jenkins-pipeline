@@ -43,3 +43,22 @@ variable "workspace_name" {
 variable "prefix" {
     description = "Unique prefix for naming"
 }
+
+variable "owner_email" {
+    description = "Email address of the person running this configuration"
+}
+
+variable "hc_region" {
+    description = "Sales region"
+    default = "NA-SOUTHEAST-ENT"
+}
+
+variable "purpose" {
+    description "Purpose of this configuration"
+    default = "Demonstration of using the TF API to manage workflows"
+}
+
+variable "ttl" {
+    description = "Hours to stay online"
+    default = "24"
+}

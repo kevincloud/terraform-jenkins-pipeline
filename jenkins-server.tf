@@ -3,7 +3,6 @@ resource "aws_instance" "jenkins-server" {
     instance_type = var.instance_type
     key_name = var.key_pair
     iam_instance_profile = aws_iam_instance_profile.jenkins-main-profile.id
-    # vpc_security_group_ids = [module.jenkinssg.id]
     vpc_security_group_ids = [aws_security_group.jenkins-server-sg.id]
     user_data = templatefile("${path.module}/scripts/jenkins-install.sh", {
         AWS_ACCESS_KEY = var.aws_access_key,
@@ -17,6 +16,10 @@ resource "aws_instance" "jenkins-server" {
 
     tags = {
         Name = "${var.prefix}-jenkins-server"
+        Owner = var.owner_email
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = ttl
     }
 }
 
@@ -45,60 +48,74 @@ resource "aws_security_group" "jenkins-server-sg" {
         protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
+    tags = {
+        Owner = var.owner_email
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = ttl
+    }
 }
 
 data "aws_iam_policy_document" "jenkins-assume-role" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+    statement {
+        effect  = "Allow"
+        actions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+        principals {
+            type        = "Service"
+            identifiers = ["ec2.amazonaws.com"]
+        }
     }
-  }
 }
 
 data "aws_iam_policy_document" "jenkins-main-access-doc" {
-  statement {
-    sid       = "FullAccess"
-    effect    = "Allow"
-    resources = ["*"]
+    statement {
+        sid       = "FullAccess"
+        effect    = "Allow"
+        resources = ["*"]
 
-    actions = [
-        "ec2:DescribeInstances",
-        "ec2:DescribeTags",
-        "ec2messages:GetMessages",
-        "ssm:UpdateInstanceInformation",
-        "ssm:ListInstanceAssociations",
-        "ssm:ListAssociations",
-        "ecr:GetAuthorizationToken",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:GetRepositoryPolicy",
-        "ecr:DescribeRepositories",
-        "ecr:ListImages",
-        "ecr:BatchGetImage",
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:DescribeKey",
-        "s3:*"
-    ]
-  }
+        actions = [
+            "ec2:DescribeInstances",
+            "ec2:DescribeTags",
+            "ec2messages:GetMessages",
+            "ssm:UpdateInstanceInformation",
+            "ssm:ListInstanceAssociations",
+            "ssm:ListAssociations",
+            "ecr:GetAuthorizationToken",
+            "ecr:BatchCheckLayerAvailability",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:GetRepositoryPolicy",
+            "ecr:DescribeRepositories",
+            "ecr:ListImages",
+            "ecr:BatchGetImage",
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:DescribeKey",
+            "s3:*"
+        ]
+    }
 }
 
 resource "aws_iam_role" "jenkins-main-access-role" {
-  name               = "${var.prefix}-jenkins-access-role"
-  assume_role_policy = data.aws_iam_policy_document.jenkins-assume-role.json
+    name               = "${var.prefix}-jenkins-access-role"
+    assume_role_policy = data.aws_iam_policy_document.jenkins-assume-role.json
+
+    tags = {
+        Owner = var.owner_email
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = ttl
+    }
 }
 
 resource "aws_iam_role_policy" "jenkins-main-access-policy" {
-  name   = "${var.prefix}-jenkins-access-policy"
-  role   = aws_iam_role.jenkins-main-access-role.id
-  policy = data.aws_iam_policy_document.jenkins-main-access-doc.json
+    name   = "${var.prefix}-jenkins-access-policy"
+    role   = aws_iam_role.jenkins-main-access-role.id
+    policy = data.aws_iam_policy_document.jenkins-main-access-doc.json
 }
 
 resource "aws_iam_instance_profile" "jenkins-main-profile" {
-  name = "${var.prefix}-jenkins-access-profile"
-  role = aws_iam_role.jenkins-main-access-role.name
+    name = "${var.prefix}-jenkins-access-profile"
+    role = aws_iam_role.jenkins-main-access-role.name
 }
