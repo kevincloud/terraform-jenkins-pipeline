@@ -19,7 +19,7 @@ resource "aws_instance" "jenkins-server" {
         Owner = var.owner_email
         Region = var.hc_region
         Purpose = var.purpose
-        TTL = ttl
+        TTL = var.ttl
     }
 }
 
@@ -53,7 +53,7 @@ resource "aws_security_group" "jenkins-server-sg" {
         Owner = var.owner_email
         Region = var.hc_region
         Purpose = var.purpose
-        TTL = ttl
+        TTL = var.ttl
     }
 }
 
@@ -105,7 +105,7 @@ resource "aws_iam_role" "jenkins-main-access-role" {
         Owner = var.owner_email
         Region = var.hc_region
         Purpose = var.purpose
-        TTL = ttl
+        TTL = var.ttl
     }
 }
 
