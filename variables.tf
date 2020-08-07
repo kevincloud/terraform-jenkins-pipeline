@@ -54,7 +54,7 @@ variable "hc_region" {
 }
 
 variable "purpose" {
-    description "Purpose of this configuration"
+    description = "Purpose of this configuration"
     default = "Demonstration of using the TF API to manage workflows"
 }
 
