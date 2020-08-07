@@ -10,18 +10,18 @@ sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sour
 
 # System updates
 
-echo 'libc6 libraries/restart-without-asking boolean true' | sudo debconf-set-selections
-export DEBIAN_FRONTEND=noninteractive
-echo "Updating apt repos..."
-apt-get -y remove grub-pc
-apt-get -y install grub-pc
-update-grub
-apt-get update > /dev/null 2>&1
-echo "Updating system..."
-# sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade > /dev/null 2>&1
-apt-get -y upgrade > /dev/null 2>&1
+# echo 'libc6 libraries/restart-without-asking boolean true' | sudo debconf-set-selections
+# export DEBIAN_FRONTEND=noninteractive
+# echo "Updating apt repos..."
+# apt-get -y remove grub-pc
+# apt-get -y install grub-pc
+# update-grub
+apt-get update
+# echo "Updating system..."
+# # sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade > /dev/null 2>&1
+# apt-get -y upgrade > /dev/null 2>&1
 echo "Installing additional software..."
-apt-get -y install git jq unzip openjdk-8-jdk python3 python3-pip npm docker.io maven jenkins > /dev/null 2>&1
+apt-get -y install git jq unzip openjdk-8-jdk python3 python3-pip npm docker.io maven jenkins
 
 echo "Adding AWS config..."
 mkdir -p /root/.aws
@@ -29,11 +29,14 @@ sudo bash -c "cat >/root/.aws/config" <<EOF
 [default]
 aws_access_key_id=${AWS_ACCESS_KEY}
 aws_secret_access_key=${AWS_SECRET_KEY}
+aws_session_token=${AWS_SESSION_TOKEN}
+region=${AWS_REGION}
 EOF
 sudo bash -c "cat >/root/.aws/credentials" <<EOF
 [default]
 aws_access_key_id=${AWS_ACCESS_KEY}
 aws_secret_access_key=${AWS_SECRET_KEY}
+aws_session_token=${AWS_SESSION_TOKEN}
 region=${AWS_REGION}
 EOF
 
