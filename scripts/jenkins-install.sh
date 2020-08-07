@@ -69,7 +69,7 @@ echo "Get public IP..."
 export PUBLIC_IP=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 
 echo "Download Jenkins config..."
-curl -sfLo "/var/lib/jenkins/jenkins.tgz" https://hc-downloadable-assets.s3-us-west-2.amazonaws.com/jenkins.tgz
+curl -sfLo "/var/lib/jenkins/jenkins.tgz" https://hc-download-assets.s3.amazonaws.com/jenkins.tgz
 # aws s3 cp s3://hc-downloadable-assets/jenkins.tgz /var/lib/jenkins/jenkins.tgz
 
 echo "Configure Jenkins..."
