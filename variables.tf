@@ -44,7 +44,7 @@ variable "prefix" {
     description = "Unique prefix for naming"
 }
 
-variable "owner_email" {
+variable "owner" {
     description = "Email address of the person running this configuration"
 }
 

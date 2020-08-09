@@ -17,7 +17,7 @@ resource "aws_instance" "jenkins-server" {
 
     tags = {
         Name = "${var.prefix}-jenkins-server"
-        Owner = var.owner_email
+        Owner = var.owner
         Region = var.hc_region
         Purpose = var.purpose
         TTL = var.ttl
@@ -51,7 +51,7 @@ resource "aws_security_group" "jenkins-server-sg" {
     }
 
     tags = {
-        Owner = var.owner_email
+        Owner = var.owner
         Region = var.hc_region
         Purpose = var.purpose
         TTL = var.ttl
@@ -103,7 +103,7 @@ resource "aws_iam_role" "jenkins-main-access-role" {
     assume_role_policy = data.aws_iam_policy_document.jenkins-assume-role.json
 
     tags = {
-        Owner = var.owner_email
+        Owner = var.owner
         Region = var.hc_region
         Purpose = var.purpose
         TTL = var.ttl
