@@ -12,7 +12,7 @@ variable "aws_session_token" {
 
 variable "aws_region" {
     description = "AWS Region"
-    default = "us-east-1"
+    default = "us-west-2"
 }
 
 variable "key_pair" {
@@ -46,11 +46,12 @@ variable "prefix" {
 
 variable "owner" {
     description = "Email address of the person running this configuration"
+    default = "jharris@hashicorp.com"
 }
 
 variable "hc_region" {
     description = "Sales region"
-    default = "NA-SOUTHEAST-ENT"
+    default = "AMER-Central-E2"
 }
 
 variable "purpose" {
