@@ -12,7 +12,7 @@ variable "aws_session_token" {
 
 variable "aws_region" {
     description = "AWS Region"
-    default = "us-east-1"
+    default = "ap-southeast-1"
 }
 
 variable "key_pair" {
@@ -21,7 +21,7 @@ variable "key_pair" {
 
 variable "instance_type" { 
     description = "Instance type for the Jenkins server"
-    default = "t3.medium"
+    default = "t3.micro"
 }
 
 variable "tfe_api_token" {
